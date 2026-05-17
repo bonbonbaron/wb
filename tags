@@ -1,0 +1,40 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+DEFAULT_HISTO	wordlebot.py	/^DEFAULT_HISTO = {"a": 0, "b": 0, "c": 0, "d": 0, "e": 0, "f": 0, "g": 0, "h": 0, "i": 0, "j": 0, "k": 0, "l": 0, "m": 0, "n": 0, "o": 0, "p": 0, "q": 0, "r": 0, "s": 0, "t": 0, "u": 0, "v": 0, "w": 0, "x": 0, "y": 0, "z": 0 }$/;"	v
+FIRST	wordlebot.py	/^FIRST="NEATO"$/;"	v
+SCRIPT_DIR	wordlebot.py	/^SCRIPT_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))$/;"	v
+currChars	wordlebot.py	/^currChars = FIRST$/;"	v
+filteredWord	wordlebot.py	/^            filteredWord = "".join( listedFilteredWord )$/;"	v
+filteredWords	wordlebot.py	/^        filteredWords = r.findall( validWords )$/;"	v
+finalregex	wordlebot.py	/^        finalregex = r""$/;"	v
+freqs	wordlebot.py	/^    freqs = yaml.safe_load( f )$/;"	v
+grayLetter	wordlebot.py	/^                    grayLetter = guess[idx]$/;"	v
+greens	wordlebot.py	/^        greens = set()$/;"	v
+guess	wordlebot.py	/^        guess = input().lower()$/;"	v
+guesses	wordlebot.py	/^guesses = { 0: [""], 1: [""], 2: [""], 3: [""], 4: [""], 5: [""] }$/;"	v
+idx	wordlebot.py	/^            idx = 0$/;"	v
+idx	wordlebot.py	/^        idx = 0$/;"	v
+letterQueue	wordlebot.py	/^letterQueue = list( freqs.keys() ) # get letters in backwards order$/;"	v
+lettersRemaining	wordlebot.py	/^lettersRemaining = letterQueue.copy()  # so we pop them out from most to least common$/;"	v
+listedFilteredWord	wordlebot.py	/^            listedFilteredWord = list(filteredWord)$/;"	v
+listedMasterRegex	wordlebot.py	/^                listedMasterRegex = list(lockedGreens)$/;"	v
+lockedGreens	wordlebot.py	/^                lockedGreens = "".join( listedMasterRegex )$/;"	v
+lockedGreens	wordlebot.py	/^lockedGreens = "     "$/;"	v
+origFilteredWord	wordlebot.py	/^            origFilteredWord = filteredWord$/;"	v
+outcome	wordlebot.py	/^        outcome = input()$/;"	v
+r	wordlebot.py	/^        r = re.compile( finalregex )$/;"	v
+regex	wordlebot.py	/^        regex = ""$/;"	v
+scoreWords	wordlebot.py	/^def scoreWords( filteredWords ):$/;"	f
+tryAgain	wordlebot.py	/^                    tryAgain = True$/;"	v
+tryAgain	wordlebot.py	/^            tryAgain = False$/;"	v
+usedLettersInThisSpot	wordlebot.py	/^            usedLettersInThisSpot = [ prevGuess[idx] for prevGuess in guesses.values() if len(prevGuess) > idx ]$/;"	v
+validLetters	wordlebot.py	/^            validLetters = lettersRemaining.copy()$/;"	v
+validWords	wordlebot.py	/^        validWords = filteredWords$/;"	v
+validWords	wordlebot.py	/^    validWords = f.read()$/;"	v
+wordleState	wordlebot.py	/^wordleState = "";$/;"	v
+wordsToRemove	wordlebot.py	/^        wordsToRemove = []$/;"	v
+yellows	wordlebot.py	/^        yellows = set()$/;"	v

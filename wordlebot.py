@@ -56,6 +56,7 @@ wordleState = "";
 with open( f"{SCRIPT_DIR}/validWords.txt", "r" ) as f:
     validWords = f.read()
 
+validWords = validWords.split("\n")
 # Remove newlines
 for idx in range(len(validWords)):
     validWords[idx] = validWords[idx].strip()
@@ -161,7 +162,7 @@ for turn in range( len(guesses) ):
 
         # Filter for validWords matching our regex.
         r = re.compile( finalregex )
-        filteredWords = r.findall( validWords )
+        filteredWords = r.findall( " ".join( validWords ) )
 
         # Do a second pass with the yellows. Get rid of validWords missing a yellow.
         # First, mask out the greens.
@@ -187,6 +188,7 @@ for turn in range( len(guesses) ):
             filteredWords.remove( wordToRemove )
 
         validWords = filteredWords
+        break
 
     if ' ' not in lockedGreens:
         print( f"Congrats! You did it in {turn + 1} turns." )
