@@ -10,7 +10,9 @@ GREEN = "\033[92m"
 RED = "\033[91m"
 YELLOW = "\033[33m"
 MAGENTA = "\033[95m"
+GRAY = "\033[90m"
 RESET = "\033[0m"
+WHITE = RESET
 
 FIRST="NEATO"
 
@@ -49,14 +51,9 @@ def guessWord( filteredWords ):
     rankedWords.reverse()
     return rankedWords[0].lower()
 
-def prompt( guess ):
-    response = random.choice( [
-        f"{MAGENTA}{guess.upper()}{GREEN} is it, yes?{RESET}",
-        f"{MAGENTA}{guess.upper()}{GREEN} has to be the answer.{RESET}",
-        f"{MAGENTA}{guess.upper()}{GREEN}, surely?{RESET}",
-        f"{MAGENTA}{guess.upper()}{GREEN} must be it this time.{RESET}",
-        f"{MAGENTA}{guess.upper()}{GREEN} or I'm crazy.{RESET}",
-    ])
+def prompt( guess, turnNum ):
+    order = [ "first", "second", "third", "fourth", "fifth", "final" ]
+    response = f"{MAGENTA}{guess.upper()}{WHITE} is my {order[turnNum]} guess.{RESET}"
     print( response )
 
 lettersRemaining = [ "a" , "b" , "c" , "d" , "e" , "f" , "g" , "h" , "i" , "j" , "k" , "l" , "m" , "n" , "o" , "p" , "q" , "r" , "s" , "t" , "u" , "v" , "w" , "x" , "y" , "z" ]
@@ -72,8 +69,11 @@ for idx in range(len(validWords)):
     validWords[idx] = validWords[idx].strip()
 
 # INTO
-print( f"{GREEN}Hi, I'm Wordle Bot! I want to guess today's Wordle.{RESET}" )
-print( f"{GREEN}Respond in UPPER CASE for greens, lower case for yellows, and spaces for grays.{RESET}" )
+print( f"{WHITE}Hi, I'm Wordle Bot!\nI want to guess today's Wordle.{RESET}" )
+print( f"{WHITE}Here's how you talk to me:{RESET}" )
+print( f"{GREEN}  * GREEN  letter = upper-case{RESET}" )
+print( f"{YELLOW}  * YELLOW letter = lower-case{RESET}" )
+print( f"{WHITE}  * GRAY   letter = <space>{RESET}" )
 
 guesses = { 0: [""], 1: [""], 2: [""], 3: [""], 4: [""], 5: [""] }
 lockedGreens = "     "
@@ -84,7 +84,7 @@ for turn in range( len(guesses) ):
 
     # Step 1: Machine makes a guess.
     guess = guessWord(validWords)
-    prompt(guess)
+    prompt(guess, turn)
 
     # Step 2: Tell wordlebot the outcome.
     while True:
