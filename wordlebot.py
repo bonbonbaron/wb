@@ -2,8 +2,15 @@ import yaml
 import re
 import os
 import sys
+import random
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+GREEN = "\033[92m"
+RED = "\033[91m"
+YELLOW = "\033[33m"
+MAGENTA = "\033[95m"
+RESET = "\033[0m"
 
 FIRST="NEATO"
 
@@ -11,7 +18,7 @@ currChars = FIRST
 
 DEFAULT_HISTO = {"a": 0, "b": 0, "c": 0, "d": 0, "e": 0, "f": 0, "g": 0, "h": 0, "i": 0, "j": 0, "k": 0, "l": 0, "m": 0, "n": 0, "o": 0, "p": 0, "q": 0, "r": 0, "s": 0, "t": 0, "u": 0, "v": 0, "w": 0, "x": 0, "y": 0, "z": 0 }
 
-def scoreWords( filteredWords ):
+def guessWord( filteredWords ):
     # Histogram the letter occurrences in each one.
     fiveHistos = 5 * [ DEFAULT_HISTO.copy() ] 
     for idx in range(5):
@@ -40,17 +47,19 @@ def scoreWords( filteredWords ):
         scoredWords[filteredWord] = score
     rankedWords = [ v[0] for v in sorted(scoredWords.items(), key=lambda item: item[1]) ]
     rankedWords.reverse()
-    print(rankedWords)
+    return rankedWords[0].lower()
 
-with open( f"{SCRIPT_DIR}/letterFreqs.yml", "r" ) as f:
+def prompt( guess ):
+    response = random.choice( [
+        f"{MAGENTA}{guess.upper()}{GREEN} is it, yes?{RESET}",
+        f"{MAGENTA}{guess.upper()}{GREEN} has to be the answer.{RESET}",
+        f"{MAGENTA}{guess.upper()}{GREEN}, surely?{RESET}",
+        f"{MAGENTA}{guess.upper()}{GREEN} must be it this time.{RESET}",
+        f"{MAGENTA}{guess.upper()}{GREEN} or I'm crazy.{RESET}",
+    ])
+    print( response )
 
-    freqs = yaml.safe_load( f )
-
-# First, get a queue of letters ordered from most to least common.
-letterQueue = list( freqs.keys() ) # get letters in backwards order
-letterQueue.reverse()  # so we pop them out from most to least common
-lettersRemaining = letterQueue.copy()  # so we pop them out from most to least common
-lettersRemaining.sort()  # so we pop them out from most to least common
+lettersRemaining = [ "a" , "b" , "c" , "d" , "e" , "f" , "g" , "h" , "i" , "j" , "k" , "l" , "m" , "n" , "o" , "p" , "q" , "r" , "s" , "t" , "u" , "v" , "w" , "x" , "y" , "z" ]
 
 # Second, load up all the valid words.
 wordleState = "";
@@ -62,7 +71,10 @@ validWords = validWords.split("\n")
 for idx in range(len(validWords)):
     validWords[idx] = validWords[idx].strip()
 
-# TODO this is a game mechanism to be impl'd later
+# INTO
+print( f"{GREEN}Hi, I'm Wordle Bot! I want to guess today's Wordle.{RESET}" )
+print( f"{GREEN}Respond in UPPER CASE for greens, lower case for yellows, and spaces for grays.{RESET}" )
+
 guesses = { 0: [""], 1: [""], 2: [""], 3: [""], 4: [""], 5: [""] }
 lockedGreens = "     "
 for turn in range( len(guesses) ):
@@ -70,36 +82,21 @@ for turn in range( len(guesses) ):
     # lower-case letters = yellow
     # spaces             = wrong
 
-    scoreWords(validWords)
-    # Step 1: Make your guess
-    while True:
-        print( f"Input your guess #{turn + 1}." )
-        guess = input().lower()
-        if len(guess) != 5:
-            print( "Your guess isn't 5 letters long. Guess again." )
-            continue
-        elif guess not in validWords:
-            print( "Your guess is not a valid word. Guess again." )
-            continue
-        else:
-            for letter in guess:
-                if letter not in lettersRemaining:
-                    print( f"Letter {letter} is not in the list of remaining letters. Guess again." )
-                    continue
-        break
+    # Step 1: Machine makes a guess.
+    guess = guessWord(validWords)
+    prompt(guess)
 
-    # Step 2: Tell wordlebot the outcome
+    # Step 2: Tell wordlebot the outcome.
     while True:
-        print( "What was the outcome? A-Z = green letter, a-z = yellow, <space> = gray" )
         outcome = input()
         if len(outcome) != 5:
-            print( "Your outcome needs to be 5 characters, even if whitespaces." )
+            print( f"{RED}Your outcome needs to be 5 characters, even if whitespaces.{RESET}" )
             continue
         else:
             tryAgain = False
             for idx in range(5):
                 if outcome[idx] != ' ' and outcome[idx].lower() != guess[idx].lower():
-                    print( f"The letter {outcome[idx]} doesn't match your guess in spot {idx}. Try again." )
+                    print( f"{RED}The letter {outcome[idx]} doesn't match your guess in spot {idx}. Try again.{RESET}" )
                     tryAgain = True
                     break
             if tryAgain:
@@ -108,23 +105,23 @@ for turn in range( len(guesses) ):
         greens = set()
         yellows = set()
 
-        # Put letters in green/yellow bins or 
+        # Put letters in green/yellow/gray bins.
         idx = 0
         for outcomeLetter in outcome:
-            # outcome's letter is GREEN
+            # outcomeLetter is GREEN
             if outcomeLetter.isupper():
                 regex += outcomeLetter.lower()
                 greens.add(outcomeLetter)
                 listedMasterRegex = list(lockedGreens)
                 listedMasterRegex[idx] = outcomeLetter.lower()
                 lockedGreens = "".join( listedMasterRegex )
-            # outcome's outcomeLetter is YELLOW or GRAY
+            # outcomeLetter is YELLOW or GRAY
             else:
                 if outcomeLetter.islower():
                     yellows.add(outcomeLetter)
                     regex += '#'   # will be filled in later
                 elif outcomeLetter == ' ':
-                    grayLetter = guess[idx]
+                    grayLetter = guess[idx].lower()
                     if grayLetter in lettersRemaining:
                         lettersRemaining.remove(grayLetter.lower() )
                     regex += ' '
@@ -148,9 +145,7 @@ for turn in range( len(guesses) ):
             # Rule out letters already used in this spot.
             usedLettersInThisSpot = [ prevGuess[idx] for prevGuess in guesses.values() if len(prevGuess) > idx ]
             for usedLetter in usedLettersInThisSpot:
-                print( f"seeing if letter {usedLetter} is in {usedLettersInThisSpot}" )
                 if usedLetter in validLetters:
-                    print( f"removing letter {usedLetter} from spot {idx}" )
                     validLetters.remove( usedLetter )
             # Since this letter isn't green, invalidate it for the filtered possible answers.
             if guess[idx] in validLetters:
@@ -163,35 +158,37 @@ for turn in range( len(guesses) ):
 
         # Filter for validWords matching our regex.
         r = re.compile( finalregex )
-        filteredWords = r.findall( " ".join( validWords ) )
+        unfilteredWords =  " ".join( validWords )
+        filteredWords = r.findall(unfilteredWords)
 
         # Do a second pass with the yellows. Get rid of validWords missing a yellow.
         # First, mask out the greens.
-        wordsToRemove = []
-        for filteredWord in filteredWords:
-            origFilteredWord = filteredWord
-            idx = 0
+        indicesToRemove = []
+        wordIdx = 0
+        # (Performance boost: Popping by index is WAY FASTER than search-based word removal.
+        for wordIdx in range( len( filteredWords ) ):
+            origFilteredWord = filteredWords[wordIdx]
+            letterIdx = 0
             # Mask out greens.
-            listedFilteredWord = list(filteredWord)
+            listedFilteredWord = list(origFilteredWord)
             for greenIdx in range(len(lockedGreens)):
-                if lockedGreens[idx] != ' ':
-                    listedFilteredWord[idx] = '-'
-            filteredWord = "".join( listedFilteredWord )
+                if lockedGreens[letterIdx] != ' ':
+                    listedFilteredWord[letterIdx] = '-'
             # Filter for masked validWords that have all the yellows.
             for yellow in yellows:
-                if yellow not in filteredWord:
-                    wordsToRemove.append( origFilteredWord )
+                if yellow not in origFilteredWord:
+                    indicesToRemove.append( wordIdx )
                     break
-            idx += 1
 
         # Then remove validWords that don't have ALL the yellows in them.
-        for wordToRemove in wordsToRemove:
-            filteredWords.remove( wordToRemove )
+        indicesToRemove.reverse()   #  so we don't change positions of things we're erasing
+        for idx in indicesToRemove:
+            filteredWords.pop( idx )
 
         validWords = filteredWords
         break
 
     if ' ' not in lockedGreens:
-        print( f"Congrats! You did it in {turn + 1} turns." )
+        print( f"{GREEN}I did it in {turn + 1} turns. Can you beat that?{RESET}" )
         exit(0)
-print( "Youuuu ahhh aaa FAYYYYLURRRRRR" )
+print( "{RED}Youuuuu have createddddd a FAIILLLYYORRRRRR{RESET}" )
