@@ -34,7 +34,8 @@ def scoreWords( filteredWords ):
         idx = 0
         for letter in set(filteredWord.lower()):
             # score += fiveHistos[idx][letter] 
-            score += fiveHistos[idx][letter] * freqs[letter]  # joint probability
+            score += fiveHistos[idx][letter] # what if we don't base it on a corpus, but our own...?
+            # score += fiveHistos[idx][letter] * freqs[letter]  # joint probability
             idx += 1
         scoredWords[filteredWord] = score
     rankedWords = [ v[0] for v in sorted(scoredWords.items(), key=lambda item: item[1]) ]
