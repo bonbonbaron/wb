@@ -8,6 +8,7 @@ GREEN = "\033[92m"
 RED = "\033[91m"
 YELLOW = "\033[33m"
 MAGENTA = "\033[95m"
+CYAN = "\033[96m"
 GRAY = "\033[90m"
 RESET = "\033[0m"
 WHITE = RESET
@@ -74,7 +75,7 @@ def guessWord( filteredWords ):
 
 def prompt( guess, turnNum ):
     order = [ "first", "second", "third", "fourth", "fifth", "final" ]
-    response = f"{MAGENTA}{guess.upper()}{WHITE} is my {order[turnNum]} guess (out of {len(validWords)} words).{RESET}"
+    response = f"Guessing {MAGENTA}{guess.upper()}{WHITE} out of {CYAN}{len(validWords)}{RESET} words."
     print( response )
 
 def maskOutGreens( answer, lockedGreens ):
