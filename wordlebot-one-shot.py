@@ -61,10 +61,16 @@ def guessWord( filteredWords ):
         scoredWords[filteredWord] = score
     rankedWords = [ v[0] for v in sorted(scoredWords.items(), key=lambda item: item[1]) ]
     rankedWords.reverse()
-    #for rw in rankedWords[:10]:
-        #print(f"{rw}: {scoredWords[rw]}")
-    #print( rankedWords[:10] )
-    return rankedWords[0].lower()
+
+    # Randomly select from equally likely words.
+    equallyLikeWords = []
+    equallyLikeWords.append(rankedWords[0])
+    highScore = scoredWords[rankedWords[0]]
+    for rw in rankedWords[1:]:
+        if scoredWords[rw] != highScore:
+            break
+        equallyLikeWords.append(rw)
+    return random.choice(equallyLikeWords)
 
 def prompt( guess, turnNum ):
     order = [ "first", "second", "third", "fourth", "fifth", "final" ]
