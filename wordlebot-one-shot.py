@@ -4,6 +4,14 @@ import os
 import sys
 import random
 
+GREEN = "\033[92m"
+RED = "\033[91m"
+YELLOW = "\033[33m"
+MAGENTA = "\033[95m"
+GRAY = "\033[90m"
+RESET = "\033[0m"
+WHITE = RESET
+
 if len(sys.argv) != 2:
     print(len(sys.argv))
     print("Expected usage:\n\twb <word-of-the-day>")
@@ -15,15 +23,10 @@ if len(answer) != 5:
     print(f"Word of the day should be 5 letters long. Yours has {len(answer)} letters.")
     exit(1)
 
+    print(f"Word of the day should be 5 letters long. Yours has {len(answer)} letters.")
 SCRIPT_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))
 
-GREEN = "\033[92m"
-RED = "\033[91m"
-YELLOW = "\033[33m"
-MAGENTA = "\033[95m"
-GRAY = "\033[90m"
-RESET = "\033[0m"
-WHITE = RESET
+print(f"{GREEN}Wordle Bot: \"Please hold while I destroy your dreams.\"{RESET}")
 
 FIRST="NEATO"
 
@@ -34,13 +37,15 @@ DEFAULT_HISTO = {"a": 0, "b": 0, "c": 0, "d": 0, "e": 0, "f": 0, "g": 0, "h": 0,
 def guessWord( filteredWords ):
     # Histogram the letter occurrences in each one.
     fiveHistos = 5 * [ DEFAULT_HISTO.copy() ] 
+    totalHisto = DEFAULT_HISTO.copy()
     for idx in range(5):
         # Histogram the letters of all filtered validWords in each spot.
         for fw in filteredWords:
             for letter in fw:
                 fiveHistos[idx][letter] += 1
-        idx += 1
+                totalHisto[letter] += 1
     # Divide each count by total to get its probability.
+    #print(totalHisto) 
     for idx in range(5):
         for letter in DEFAULT_HISTO.keys():
             fiveHistos[idx][letter] /= len(filteredWords)
@@ -48,24 +53,22 @@ def guessWord( filteredWords ):
     # Score the remaining validWords by their letter frequencies.
     scoredWords = {}
     for filteredWord in filteredWords:
-        # don't multi-count any letter = variety scores higher to rule out more possibilities
-        #for letter in set(filteredWord.lower()):   
-            #score += freqs[letter]
         score = 0
         idx = 0
         for letter in set(filteredWord.lower()):
-            # score += fiveHistos[idx][letter] 
             score += fiveHistos[idx][letter] # what if we don't base it on a corpus, but our own...?
-            # score += fiveHistos[idx][letter] * freqs[letter]  # joint probability
             idx += 1
         scoredWords[filteredWord] = score
     rankedWords = [ v[0] for v in sorted(scoredWords.items(), key=lambda item: item[1]) ]
     rankedWords.reverse()
+    #for rw in rankedWords[:10]:
+        #print(f"{rw}: {scoredWords[rw]}")
+    #print( rankedWords[:10] )
     return rankedWords[0].lower()
 
 def prompt( guess, turnNum ):
     order = [ "first", "second", "third", "fourth", "fifth", "final" ]
-    response = f"{MAGENTA}{guess.upper()}{WHITE} is my {order[turnNum]} guess.{RESET}"
+    response = f"{MAGENTA}{guess.upper()}{WHITE} is my {order[turnNum]} guess (out of {len(validWords)} words).{RESET}"
     print( response )
 
 def maskOutGreens( answer, lockedGreens ):
@@ -215,4 +218,4 @@ for turn in range( len(guesses) ):
 
     validWords = filteredWords
 
-print( "{RED}Youuuuu have createddddd a FAIILLLYYORRRRRR{RESET}" )
+print( f"{RED}Youuuuu have createddddd a FAIILLLYYORRRRRR{RESET}" )
