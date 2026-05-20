@@ -4,6 +4,11 @@ import os
 import sys
 import random
 
+#if len(sys.argv) != 2:
+    #print("Expected usage:\n\twb <word-of-the-day>")
+
+answer = sys.argv[1]
+
 SCRIPT_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))
 
 GREEN = "\033[92m"

@@ -1,0 +1,92 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+DEFAULT_HISTO	wordlebot-one-shot.py	/^DEFAULT_HISTO = {"a": 0, "b": 0, "c": 0, "d": 0, "e": 0, "f": 0, "g": 0, "h": 0, "i": 0, "j": 0, "k": 0, "l": 0, "m": 0, "n": 0, "o": 0, "p": 0, "q": 0, "r": 0, "s": 0, "t": 0, "u": 0, "v": 0, "w": 0, "x": 0, "y": 0, "z": 0 }$/;"	v
+DEFAULT_HISTO	wordlebot.py	/^DEFAULT_HISTO = {"a": 0, "b": 0, "c": 0, "d": 0, "e": 0, "f": 0, "g": 0, "h": 0, "i": 0, "j": 0, "k": 0, "l": 0, "m": 0, "n": 0, "o": 0, "p": 0, "q": 0, "r": 0, "s": 0, "t": 0, "u": 0, "v": 0, "w": 0, "x": 0, "y": 0, "z": 0 }$/;"	v
+FIRST	wordlebot-one-shot.py	/^FIRST="NEATO"$/;"	v
+FIRST	wordlebot.py	/^FIRST="NEATO"$/;"	v
+GRAY	wordlebot-one-shot.py	/^GRAY = "\\033[90m"$/;"	v
+GRAY	wordlebot.py	/^GRAY = "\\033[90m"$/;"	v
+GREEN	wordlebot-one-shot.py	/^GREEN = "\\033[92m"$/;"	v
+GREEN	wordlebot.py	/^GREEN = "\\033[92m"$/;"	v
+MAGENTA	wordlebot-one-shot.py	/^MAGENTA = "\\033[95m"$/;"	v
+MAGENTA	wordlebot.py	/^MAGENTA = "\\033[95m"$/;"	v
+RED	wordlebot-one-shot.py	/^RED = "\\033[91m"$/;"	v
+RED	wordlebot.py	/^RED = "\\033[91m"$/;"	v
+RESET	wordlebot-one-shot.py	/^RESET = "\\033[0m"$/;"	v
+RESET	wordlebot.py	/^RESET = "\\033[0m"$/;"	v
+SCRIPT_DIR	wordlebot-one-shot.py	/^SCRIPT_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))$/;"	v
+SCRIPT_DIR	wordlebot.py	/^SCRIPT_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))$/;"	v
+WHITE	wordlebot-one-shot.py	/^WHITE = RESET$/;"	v
+WHITE	wordlebot.py	/^WHITE = RESET$/;"	v
+YELLOW	wordlebot-one-shot.py	/^YELLOW = "\\033[33m"$/;"	v
+YELLOW	wordlebot.py	/^YELLOW = "\\033[33m"$/;"	v
+answer	wordlebot-one-shot.py	/^answer = sys.argv[1]$/;"	v
+answer	wordlebot.py	/^answer = sys.argv[1]$/;"	v
+currChars	wordlebot-one-shot.py	/^currChars = FIRST$/;"	v
+currChars	wordlebot.py	/^currChars = FIRST$/;"	v
+filteredWords	wordlebot-one-shot.py	/^        filteredWords = r.findall(unfilteredWords)$/;"	v
+filteredWords	wordlebot.py	/^        filteredWords = r.findall(unfilteredWords)$/;"	v
+finalregex	wordlebot-one-shot.py	/^        finalregex = r""$/;"	v
+finalregex	wordlebot.py	/^        finalregex = r""$/;"	v
+grayLetter	wordlebot-one-shot.py	/^                    grayLetter = guess[idx].lower()$/;"	v
+grayLetter	wordlebot.py	/^                    grayLetter = guess[idx].lower()$/;"	v
+greens	wordlebot-one-shot.py	/^        greens = set()$/;"	v
+greens	wordlebot.py	/^        greens = set()$/;"	v
+guess	wordlebot-one-shot.py	/^    guess = guessWord(validWords)$/;"	v
+guess	wordlebot.py	/^    guess = guessWord(validWords)$/;"	v
+guessWord	wordlebot-one-shot.py	/^def guessWord( filteredWords ):$/;"	f
+guessWord	wordlebot.py	/^def guessWord( filteredWords ):$/;"	f
+guesses	wordlebot-one-shot.py	/^guesses = { 0: [""], 1: [""], 2: [""], 3: [""], 4: [""], 5: [""] }$/;"	v
+guesses	wordlebot.py	/^guesses = { 0: [""], 1: [""], 2: [""], 3: [""], 4: [""], 5: [""] }$/;"	v
+idx	wordlebot-one-shot.py	/^        idx = 0$/;"	v
+idx	wordlebot.py	/^        idx = 0$/;"	v
+indicesToRemove	wordlebot-one-shot.py	/^        indicesToRemove = []$/;"	v
+indicesToRemove	wordlebot.py	/^        indicesToRemove = []$/;"	v
+letterIdx	wordlebot-one-shot.py	/^            letterIdx = 0$/;"	v
+letterIdx	wordlebot.py	/^            letterIdx = 0$/;"	v
+lettersRemaining	wordlebot-one-shot.py	/^lettersRemaining = [ "a" , "b" , "c" , "d" , "e" , "f" , "g" , "h" , "i" , "j" , "k" , "l" , "m" , "n" , "o" , "p" , "q" , "r" , "s" , "t" , "u" , "v" , "w" , "x" , "y" , "z" ]$/;"	v
+lettersRemaining	wordlebot.py	/^lettersRemaining = [ "a" , "b" , "c" , "d" , "e" , "f" , "g" , "h" , "i" , "j" , "k" , "l" , "m" , "n" , "o" , "p" , "q" , "r" , "s" , "t" , "u" , "v" , "w" , "x" , "y" , "z" ]$/;"	v
+listedFilteredWord	wordlebot-one-shot.py	/^            listedFilteredWord = list(origFilteredWord)$/;"	v
+listedFilteredWord	wordlebot.py	/^            listedFilteredWord = list(origFilteredWord)$/;"	v
+listedMasterRegex	wordlebot-one-shot.py	/^                listedMasterRegex = list(lockedGreens)$/;"	v
+listedMasterRegex	wordlebot.py	/^                listedMasterRegex = list(lockedGreens)$/;"	v
+lockedGreens	wordlebot-one-shot.py	/^                lockedGreens = "".join( listedMasterRegex )$/;"	v
+lockedGreens	wordlebot-one-shot.py	/^lockedGreens = "     "$/;"	v
+lockedGreens	wordlebot.py	/^                lockedGreens = "".join( listedMasterRegex )$/;"	v
+lockedGreens	wordlebot.py	/^lockedGreens = "     "$/;"	v
+origFilteredWord	wordlebot-one-shot.py	/^            origFilteredWord = filteredWords[wordIdx]$/;"	v
+origFilteredWord	wordlebot.py	/^            origFilteredWord = filteredWords[wordIdx]$/;"	v
+outcome	wordlebot-one-shot.py	/^        outcome = input()$/;"	v
+outcome	wordlebot.py	/^        outcome = input()$/;"	v
+prompt	wordlebot-one-shot.py	/^def prompt( guess, turnNum ):$/;"	f
+prompt	wordlebot.py	/^def prompt( guess, turnNum ):$/;"	f
+r	wordlebot-one-shot.py	/^        r = re.compile( finalregex )$/;"	v
+r	wordlebot.py	/^        r = re.compile( finalregex )$/;"	v
+regex	wordlebot-one-shot.py	/^        regex = ""$/;"	v
+regex	wordlebot.py	/^        regex = ""$/;"	v
+tryAgain	wordlebot-one-shot.py	/^                    tryAgain = True$/;"	v
+tryAgain	wordlebot-one-shot.py	/^            tryAgain = False$/;"	v
+tryAgain	wordlebot.py	/^                    tryAgain = True$/;"	v
+tryAgain	wordlebot.py	/^            tryAgain = False$/;"	v
+unfilteredWords	wordlebot-one-shot.py	/^        unfilteredWords =  " ".join( validWords )$/;"	v
+unfilteredWords	wordlebot.py	/^        unfilteredWords =  " ".join( validWords )$/;"	v
+usedLettersInThisSpot	wordlebot-one-shot.py	/^            usedLettersInThisSpot = [ prevGuess[idx] for prevGuess in guesses.values() if len(prevGuess) > idx ]$/;"	v
+usedLettersInThisSpot	wordlebot.py	/^            usedLettersInThisSpot = [ prevGuess[idx] for prevGuess in guesses.values() if len(prevGuess) > idx ]$/;"	v
+validLetters	wordlebot-one-shot.py	/^            validLetters = lettersRemaining.copy()$/;"	v
+validLetters	wordlebot.py	/^            validLetters = lettersRemaining.copy()$/;"	v
+validWords	wordlebot-one-shot.py	/^        validWords = filteredWords$/;"	v
+validWords	wordlebot-one-shot.py	/^    validWords = f.read()$/;"	v
+validWords	wordlebot-one-shot.py	/^validWords = validWords.split("\\n")$/;"	v
+validWords	wordlebot.py	/^        validWords = filteredWords$/;"	v
+validWords	wordlebot.py	/^    validWords = f.read()$/;"	v
+validWords	wordlebot.py	/^validWords = validWords.split("\\n")$/;"	v
+wordIdx	wordlebot-one-shot.py	/^        wordIdx = 0$/;"	v
+wordIdx	wordlebot.py	/^        wordIdx = 0$/;"	v
+wordleState	wordlebot-one-shot.py	/^wordleState = "";$/;"	v
+wordleState	wordlebot.py	/^wordleState = "";$/;"	v
+yellows	wordlebot-one-shot.py	/^        yellows = set()$/;"	v
+yellows	wordlebot.py	/^        yellows = set()$/;"	v
