@@ -3,6 +3,7 @@ import re
 import os
 import sys
 import random
+import argparse
 
 GREEN = "\033[92m"
 RED = "\033[91m"
@@ -13,12 +14,23 @@ GRAY = "\033[90m"
 RESET = "\033[0m"
 WHITE = RESET
 
-if len(sys.argv) != 2:
+FIRSTWORD_OPT = "-f"
+firstWord = None
+answer = None
+if FIRSTWORD_OPT in sys.argv:
+    optidx = sys.argv.index(FIRSTWORD_OPT)
+    if optidx < len(sys.argv) - 1:
+        firstWord = sys.argv[optidx + 1]
+    if optidx > 1:
+        answer = sys.argv[1]
+    else:
+        answer = sys.argv[-1]
+elif len(sys.argv) != 2:
     print(len(sys.argv))
     print("Expected usage:\n\twb <word-of-the-day>")
     exit(1)
-
-answer = sys.argv[1].lower()
+else:
+    answer = sys.argv[1].lower()
 
 if len(answer) != 5:
     print(f"Word of the day should be 5 letters long. Yours has {len(answer)} letters.")
@@ -28,10 +40,6 @@ if len(answer) != 5:
 SCRIPT_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))
 
 print(f"{GREEN}Wordle Bot: \"Please hold while I destroy your dreams.\"{RESET}")
-
-FIRST="NEATO"
-
-currChars = FIRST
 
 DEFAULT_HISTO = {"a": 0, "b": 0, "c": 0, "d": 0, "e": 0, "f": 0, "g": 0, "h": 0, "i": 0, "j": 0, "k": 0, "l": 0, "m": 0, "n": 0, "o": 0, "p": 0, "q": 0, "r": 0, "s": 0, "t": 0, "u": 0, "v": 0, "w": 0, "x": 0, "y": 0, "z": 0 }
 
@@ -117,7 +125,7 @@ for turn in range( len(guesses) ):
     # spaces             = wrong
 
     # Step 1: Machine makes a guess.
-    guess = guessWord(validWords)
+    guess = firstWord if firstWord is not None and turn == 0 else guessWord(validWords)
     prompt(guess, turn)
 
     # Step 2: Tell wordlebot the outcome.
