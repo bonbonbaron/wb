@@ -14,9 +14,11 @@ GRAY = "\033[90m"
 RESET = "\033[0m"
 WHITE = RESET
 
+optsWithArgs = [ "-f" ]   # in case we add more later
 FIRSTWORD_OPT = "-f"
 firstWord = None
 answer = None
+randomPick = False
 if FIRSTWORD_OPT in sys.argv:
     optidx = sys.argv.index(FIRSTWORD_OPT)
     if optidx < len(sys.argv) - 1:
@@ -25,12 +27,35 @@ if FIRSTWORD_OPT in sys.argv:
         answer = sys.argv[1]
     else:
         answer = sys.argv[-1]
-elif len(sys.argv) != 2:
-    print(len(sys.argv))
-    print("Expected usage:\n\twb <word-of-the-day>")
-    exit(1)
-else:
+elif len(sys.argv) == 2:
     answer = sys.argv[1].lower()
+
+if "-r" in sys.argv:
+    randomPick = True
+
+# Find the input answer
+prevWasOpt = False
+foundAnswer = False
+for arg in sys.argv[1:]:
+    print("arg: " + arg)
+    if arg[0] in optsWithArgs:
+        prevWasOpt = True
+        continue
+    elif arg[0] == "-":  # an option that doesn't take args
+        prevWasOpt = False
+        continue
+    else:   # non option arg
+        if prevWasOpt:  # this is an option's argument
+            prevWasOpt = False
+            continue
+        else:
+            foundAnswer = True
+            answer = arg
+            break
+
+if not foundAnswer:
+    print("Uhhhh what word do you want me to guess? Or did you just wanna say hi?")
+    exit(1)
 
 if len(answer) != 5:
     print(f"Word of the day should be 5 letters long. Yours has {len(answer)} letters.")
@@ -79,7 +104,9 @@ def guessWord( filteredWords ):
         if scoredWords[rw] != highScore:
             break
         equallyLikeWords.append(rw)
-    return random.choice(equallyLikeWords)
+    if randomPick:
+        return random.choice(equallyLikeWords)
+    return rankedWords[0]
 
 def prompt( guess, turnNum ):
     order = [ "first", "second", "third", "fourth", "fifth", "final" ]
